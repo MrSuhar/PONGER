@@ -9,7 +9,7 @@ glob_height=(monitor_size.current_h-70)
 
 #creating game window
 screen=pygame.display.set_mode((glob_width,glob_height))
-pygame.display.set_caption("PONGER v 0.02")
+pygame.display.set_caption("PONGER v 0.03")
 
 #loading background image,scaling to monitor
 bckgrnd=pygame.image.load("TEXTURES/space.jpg")
