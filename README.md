@@ -9,6 +9,9 @@ P2 controls:
 Move up - 8 on numpad
 Move down- 5 on numpad
 
+Other controls:
+Pause game - p
+
 <br/>
 TO DO:<br/>
 1.add music <br/>
