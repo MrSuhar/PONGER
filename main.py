@@ -1,7 +1,6 @@
 import pygame
-import random
+import ball
 
-random.seed(420)
 pygame.init()
 #getting screen size
 monitor_size=pygame.display.Info()
@@ -22,19 +21,12 @@ P2_y=glob_height/3
 P1_points=0
 P2_points=0
 
-#Ball parameteres
-Ball_radius=13
-Ball_speed=3
-Ball_x=glob_width/2
-Ball_y=glob_height/2
+#Creating ball and it's basic parameters
+meteoroid=ball.Ball(13,3,(glob_width/2),(glob_height/2)) #radius,speed,x,y
 
-#ball starting movement 
-Ball_up=True
-Ball_right=True
-if random.randint(0,3)==1:
-	Ball_up=False
-if random.randint(0,3)==1:
-	Ball_right=False
+#TEXTURING BALL WORK IN PROGRESS
+meteoroid_img=pygame.image.load("TEXTURES/moon.png")
+meteoroid_img=pygame.transform.scale(meteoroid_img,(400,400))
 
 #point counters
 myfont=pygame.font.SysFont('Arial',30)
@@ -77,35 +69,21 @@ while run:
 	#pausing game
 	if not paused:
 		#Ball movement
-		if Ball_y<Ball_radius:Ball_up=False
-		if Ball_y>(glob_height-Ball_radius):Ball_up=True
+		meteoroid.move_vertical(glob_height)
+		meteoroid.move_horizontal()
 
-		if Ball_up: Ball_y-=Ball_speed
-		else :Ball_y+=Ball_speed
+		#hitting left racket		
+		if meteoroid.x<meteoroid.radius:	
+			P2_points=meteoroid.hit_racket(P1_y,glob_height,glob_width,P2_points)				
 
-		#hitting left racket
-		if Ball_x<Ball_radius:
-			if (Ball_y+Ball_radius)>=P1_y:
-				if Ball_y<=(P1_y+Ball_radius+glob_height/6):
-					Ball_right=True
-			else:
-				Ball_x=glob_width/2
-				P2_points+=1
-
-		#hitting right racket
-		if Ball_x>=(glob_width-Ball_radius):
-			if (Ball_y+Ball_radius)>=P2_y:
-				if Ball_y<=(P2_y+Ball_radius+glob_height/6):
-					Ball_right=False
-			else:
-				Ball_x=glob_width/2
-				P1_points+=1
-
-		if Ball_right: Ball_x+=Ball_speed
-		else :Ball_x-=Ball_speed
+		#hitting right racket		
+		if meteoroid.x>=(glob_width-meteoroid.radius):
+			P1_points=meteoroid.hit_racket(P2_y,glob_height,glob_width,P1_points)		
 
 		#background graphics
 		screen.blit(bckgrnd,(0,0))
+		#TEXTURING BALL WORK IN PROGRESS
+		screen.blit(meteoroid_img,((glob_width/2-200,0)))
 		#players point counters
 		counter_P1=myfont.render(str(P1_points),False,(255,255,255))
 		counter_P2=myfont.render(str(P2_points),False,(255,255,255))
@@ -114,8 +92,8 @@ while run:
 
 		#drawing rackets
 		pygame.draw.rect(screen,(255,255,255),(0,P1_y,glob_width/100,glob_height/6))
-		pygame.draw.rect(screen,(255,255,255),((99/100)*glob_width,P2_y,glob_width/100,glob_height/6))
-		pygame.draw.circle(screen,(255,255,255),(Ball_x,Ball_y),Ball_radius*2,0)
+		pygame.draw.rect(screen,(255,255,255),((99/100)*glob_width,P2_y,glob_width/100,glob_height/6))		
+		pygame.draw.circle(screen,(255,255,255),(meteoroid.x,meteoroid.y),meteoroid.radius*2,0)
 		pygame.display.update()
 
 
