@@ -14,6 +14,7 @@ Pause game - p
 
 <br/>
 TO DO:<br/>
+0.fix ball physics when flying above rackets<br/>
 1.add music <br/>
 2.add power ups<br/>
 3.1 create bash script for compiling .exe <br/>
