@@ -34,7 +34,7 @@ class Ball:
 
     def hit_racket(self,racket_Y,glob_height,glob_width,points):#change to racket height, add start position function
         if (self.y+self.radius)>=racket_Y:
-                if self.y<=(racket_Y+self.radius+glob_height/6):
+                if self.y<=(racket_Y-self.radius+glob_height/6):
                     self.move_right=not self.move_right
                    
                 else:

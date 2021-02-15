@@ -9,7 +9,7 @@ glob_height=(monitor_size.current_h-70)
 
 #creating game window
 screen=pygame.display.set_mode((glob_width,glob_height))
-pygame.display.set_caption("PONGER v 0.03")
+pygame.display.set_caption("PONGER v 0.04")
 
 #loading background image,scaling to monitor
 bckgrnd=pygame.image.load("TEXTURES/space.jpg")
@@ -73,7 +73,7 @@ while run:
 		meteoroid.move_horizontal()
 
 		#hitting left racket		
-		if meteoroid.x<meteoroid.radius:	
+		if meteoroid.x<=meteoroid.radius:	
 			P2_points=meteoroid.hit_racket(P1_y,glob_height,glob_width,P2_points)				
 
 		#hitting right racket		
